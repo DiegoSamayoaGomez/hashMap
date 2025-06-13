@@ -1,6 +1,9 @@
 const HashMap = () => {
-  let myBucket = [0];
+  // let myBucket = [];
+  // Create an array of 16 buckets
+  let myBucket = new Array(16);
   let numberOfBuckets = myBucket.length;
+  // Set a load factor to know when will be needed to increase the number of buckets
   let loadFactor = 0.75;
   let capacity = numberOfBuckets;
 
@@ -27,10 +30,10 @@ const HashMap = () => {
     // Pass the key to the hash function
     let bucketLocation = hash(key);
     // Find the bucket at index
+    myBucket[bucketLocation] = { [key]: value };
     // Store the kay value pair in that bucket
-    myBucket.splice(bucketLocation, 0, { [key]: value });
-    console.log("Created, I guess");
-    console.log(myBucket);
+    // ** Check if the value to store is the same, if so, replace it, otherwise add it as a linked list to that bucket**
+    //myBucket.splice(bucketLocation, 1, { [key]: value });
   };
 
   // Get the array of values stored in the bucket
@@ -50,6 +53,10 @@ const HashMap = () => {
 let instanceOfHashMap = HashMap();
 // Know the index of the key value pair
 console.log(instanceOfHashMap.hash("Diego"));
-instanceOfHashMap.set("Diego", "Samayoa"); // Delete later the access to this function
+
+instanceOfHashMap.set("Diego", "Old value"); // Delete later the access to this function
+instanceOfHashMap.set("Alejandro", "Different value"); // Delete later the access to this function
+instanceOfHashMap.set("Diego", "New value"); // Delete later the access to this function
+
 console.log("Print bucket", instanceOfHashMap.getBucket());
 console.log(instanceOfHashMap.getNumberOfBuckets());
