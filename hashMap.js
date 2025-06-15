@@ -52,11 +52,22 @@ const HashMap = () => {
     return myBucket.length;
   };
 
+  const printBuckets = () => {
+    myBucket.forEach((bucket, index) => {
+      if (bucket) {
+        console.log(`Bucket ${index}: ${bucket.toString()}`);
+      } else {
+        console.log(`Bucket ${index}: empty`);
+      }
+    });
+  };
+
   return {
     hash, // Delete later access to this function
     getNumberOfBuckets, // Delete later this function entirely
     set,
     getBucket,
+    printBuckets,
   };
 };
 
