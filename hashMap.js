@@ -1,4 +1,8 @@
+import { LinkedList } from "./linkedList.js";
+
 const HashMap = () => {
+  let instanceOfLinkedList = LinkedList();
+
   // let myBucket = [];
   // Create an array of 16 buckets
   let myBucket = new Array(16);
@@ -30,7 +34,13 @@ const HashMap = () => {
     // Pass the key to the hash function
     let bucketLocation = hash(key);
     // Find the bucket at index
-    myBucket[bucketLocation] = { [key]: value };
+    //myBucket[bucketLocation] = { [key]: value };
+
+    if (!myBucket[bucketLocation]) {
+      myBucket[bucketLocation] = LinkedList(); // create a new linked list
+    }
+    myBucket[bucketLocation].append({ [key]: value }); // just append, don’t assign
+
     // Store the kay value pair in that bucket
     // ** Check if the value to store is the same, if so, replace it, otherwise add it as a linked list to that bucket**
     //myBucket.splice(bucketLocation, 1, { [key]: value });
@@ -39,7 +49,7 @@ const HashMap = () => {
   // Get the array of values stored in the bucket
   const getBucket = () => myBucket;
   const getNumberOfBuckets = () => {
-    myBucket.length;
+    return myBucket.length;
   };
 
   return {
@@ -59,4 +69,5 @@ instanceOfHashMap.set("Alejandro", "Different value"); // Delete later the acces
 instanceOfHashMap.set("Diego", "New value"); // Delete later the access to this function
 
 console.log("Print bucket", instanceOfHashMap.getBucket());
-console.log(instanceOfHashMap.getNumberOfBuckets());
+console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
+instanceOfHashMap.printBuckets();
