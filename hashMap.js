@@ -34,16 +34,22 @@ const HashMap = () => {
     // Pass the key to the hash function
     let bucketLocation = hash(key);
     // Find the bucket at index
-    //myBucket[bucketLocation] = { [key]: value };
-
     if (!myBucket[bucketLocation]) {
       myBucket[bucketLocation] = LinkedList(); // create a new linked list
     }
-    myBucket[bucketLocation].append({ [key]: value }); // just append, don’t assign
+    // ** Check if the value to store is the same, if so, replace it, otherwise add it as a linked list to that bucket**
+    let current = myBucket[bucketLocation].atIndex(0);
+    while (current) {
+      if (current.value.key === key) {
+        current.value.value = value; // Replace old value
+        return;
+      }
+      current = current.next;
+    }
+    //myBucket[bucketLocation] = { [key]: value };
+    myBucket[bucketLocation].append({ key, value }); // just append, don’t assign
 
     // Store the kay value pair in that bucket
-    // ** Check if the value to store is the same, if so, replace it, otherwise add it as a linked list to that bucket**
-    //myBucket.splice(bucketLocation, 1, { [key]: value });
   };
 
   // Get the array of values stored in the bucket
@@ -78,6 +84,9 @@ console.log(instanceOfHashMap.hash("Diego"));
 instanceOfHashMap.set("Diego", "Old value"); // Delete later the access to this function
 instanceOfHashMap.set("Alejandro", "Different value"); // Delete later the access to this function
 instanceOfHashMap.set("Diego", "New value"); // Delete later the access to this function
+instanceOfHashMap.set("Sara", "xd?");
+instanceOfHashMap.set("Rasa", "xd?");
+instanceOfHashMap.set("Rasa", "Nuevo");
 
 console.log("Print bucket", instanceOfHashMap.getBucket());
 console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
