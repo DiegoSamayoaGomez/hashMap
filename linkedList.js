@@ -107,7 +107,8 @@ export const LinkedList = function () {
     let textOfValue = "";
     while (current !== null) {
       current.value;
-      textOfValue += ` (${JSON.stringify(current.value)})`;
+      //textOfValue += ` (${JSON.stringify(current.value)})`;
+      textOfValue += `[${current.value.key}: ${current.value.value}] `;
       current = current.next;
     }
     return textOfValue;
