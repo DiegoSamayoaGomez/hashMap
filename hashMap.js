@@ -10,7 +10,8 @@ const HashMap = () => {
   // Set a load factor to know when will be needed to increase the number of buckets
   let loadFactor = 0.75;
   let capacity = numberOfBuckets;
-
+  // Store a number of keys created
+  let keyLenght = 0;
   // Takes a key and produces a hash code with it.
   // ** EDGE CASE ** For long keys, the hash code will exceed the integer value of JS
   // and produce inaccurate data. Use % to prevent it
@@ -48,7 +49,7 @@ const HashMap = () => {
     }
     //myBucket[bucketLocation] = { [key]: value };
     myBucket[bucketLocation].append({ key, value }); // just append, don’t assign
-
+    keyLenght++;
     // Store the kay value pair in that bucket
   };
 
@@ -111,10 +112,18 @@ const HashMap = () => {
       if (findKeyOfNode !== null) {
         // Based on the index of the node, return the value which corresponds to the key
         let getValueOfNode = selectedBucket.atIndex(findKeyOfNode);
-        return selectedBucket.pop(getValueOfNode);
+        let responseOfPop = selectedBucket.pop(getValueOfNode);
+        responseOfPop === true ? keyLenght-- : keyLenght;
+        return responseOfPop;
       }
+
       return "Key not found";
     }
+  };
+
+  // Returns the number of stored keys in the hash map
+  const length = () => {
+    return keyLenght;
   };
 
   const printBuckets = () => {
@@ -136,6 +145,7 @@ const HashMap = () => {
     get,
     has,
     remove,
+    length,
   };
 };
 
@@ -155,5 +165,11 @@ console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
 instanceOfHashMap.printBuckets();
 console.log("GET", instanceOfHashMap.get("Rasa"));
 console.log("HAS", instanceOfHashMap.has("Diego"));
+console.log("LENGTH", instanceOfHashMap.length());
 console.log("REMOVE", instanceOfHashMap.remove("Rasa"));
+instanceOfHashMap.printBuckets();
+console.log("LENGTH", instanceOfHashMap.length());
+instanceOfHashMap.set("Test", "Nuevo");
+instanceOfHashMap.printBuckets();
+console.log("LENGTH", instanceOfHashMap.length());
 instanceOfHashMap.printBuckets();
