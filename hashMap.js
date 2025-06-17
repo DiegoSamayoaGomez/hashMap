@@ -58,6 +58,27 @@ const HashMap = () => {
     return myBucket.length;
   };
 
+  // Takes one argument as a key and returns the value that is assigned to this key
+  const get = (key) => {
+    // Hash the key and calculate the index of the bucket
+    let indexOfBucket = hash(key);
+    // If the bucket is not empty, go to that bucket
+    if (myBucket[indexOfBucket] === undefined) {
+      return "Empty bucket";
+    } else {
+      // Compare if the node’s key is the same key that was used for the retrieval
+      let selectedBucket = myBucket[indexOfBucket];
+      // Get the index of the node that contains the key value pair (if exists), otherwise end the execution
+      let findKeyOfNode = selectedBucket.find(key);
+      if (findKeyOfNode !== null) {
+        // Based on the index of the node, return the value which corresponds to the key
+        let getValueOfNode = selectedBucket.atIndex(findKeyOfNode);
+        return JSON.stringify(getValueOfNode.value.value);
+      }
+      return "Key not found";
+    }
+  };
+
   const printBuckets = () => {
     myBucket.forEach((bucket, index) => {
       if (bucket) {
@@ -74,12 +95,13 @@ const HashMap = () => {
     set,
     getBucket,
     printBuckets,
+    get,
   };
 };
 
 let instanceOfHashMap = HashMap();
 // Know the index of the key value pair
-console.log(instanceOfHashMap.hash("Diego"));
+console.log(instanceOfHashMap.hash("sara"));
 
 instanceOfHashMap.set("Diego", "Old value"); // Delete later the access to this function
 instanceOfHashMap.set("Alejandro", "Different value"); // Delete later the access to this function
@@ -91,3 +113,4 @@ instanceOfHashMap.set("Rasa", "Nuevo");
 console.log("Print bucket", instanceOfHashMap.getBucket());
 console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
 instanceOfHashMap.printBuckets();
+console.log("GET", instanceOfHashMap.get("Rasa"));
