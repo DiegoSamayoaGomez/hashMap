@@ -3,9 +3,10 @@ import { LinkedList } from "./linkedList.js";
 const HashMap = () => {
   let instanceOfLinkedList = LinkedList();
 
-  // let myBucket = [];
+  // Set initial value of buckets, it will grow based on some factors
+  let setNumberOfBuckets = 16;
   // Create an array of 16 buckets
-  let myBucket = new Array(16);
+  let myBucket = new Array(setNumberOfBuckets);
   let numberOfBuckets = myBucket.length;
   // Set a load factor to know when will be needed to increase the number of buckets
   let loadFactor = 0.75;
@@ -126,6 +127,15 @@ const HashMap = () => {
     return keyLenght;
   };
 
+  //  Removes all entries in the hash map
+  const clear = () => {
+    // Empty the array of buckets
+    myBucket.length = 0;
+
+    //Create a new array
+    myBucket = new Array(setNumberOfBuckets);
+  };
+
   const printBuckets = () => {
     myBucket.forEach((bucket, index) => {
       if (bucket) {
@@ -146,6 +156,7 @@ const HashMap = () => {
     has,
     remove,
     length,
+    clear,
   };
 };
 
@@ -172,4 +183,12 @@ console.log("LENGTH", instanceOfHashMap.length());
 instanceOfHashMap.set("Test", "Nuevo");
 instanceOfHashMap.printBuckets();
 console.log("LENGTH", instanceOfHashMap.length());
+instanceOfHashMap.printBuckets();
+
+instanceOfHashMap.clear();
+console.log("Print bucket after clear", instanceOfHashMap.getBucket());
+console.log(
+  "Number of buckets after clear",
+  instanceOfHashMap.getNumberOfBuckets()
+);
 instanceOfHashMap.printBuckets();
