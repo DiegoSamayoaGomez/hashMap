@@ -156,6 +156,23 @@ export const LinkedList = function () {
 
     return currentValue;
   };
+  // Return the key value pair of each node AS PLAIN TEXT
+  let getKeyValues = () => {
+    let current = head;
+    let currentKeyValue = {};
+    while (current !== null) {
+      let key;
+      let value;
+      key = current.value.key;
+      value = current.value.value;
+      currentKeyValue = `[${key}, ${value}]`;
+      // CHANGE TO SEND THEM AS OBJECTS
+      //  currentKeyValue = {key, value}};
+      current = current.next;
+    }
+
+    return currentKeyValue;
+  };
   return {
     append,
     preppend,
@@ -169,6 +186,7 @@ export const LinkedList = function () {
     toString,
     getKeys,
     getValues,
+    getKeyValues,
   };
 };
 
