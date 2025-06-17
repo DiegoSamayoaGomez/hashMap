@@ -132,8 +132,19 @@ const HashMap = () => {
     // Empty the array of buckets
     myBucket.length = 0;
 
-    //Create a new array
+    // Create a new array
     myBucket = new Array(setNumberOfBuckets);
+  };
+
+  // Returns an array containing all the keys inside the hash map
+  const keys = () => {
+    // Create an empty array to store the keys
+    let allKeys = [];
+    myBucket.forEach((bucket) => {
+      allKeys.push(bucket.getKeys());
+    });
+    // Return the collected keys
+    return allKeys;
   };
 
   const printBuckets = () => {
@@ -157,6 +168,7 @@ const HashMap = () => {
     remove,
     length,
     clear,
+    keys,
   };
 };
 
@@ -185,6 +197,9 @@ instanceOfHashMap.printBuckets();
 console.log("LENGTH", instanceOfHashMap.length());
 instanceOfHashMap.printBuckets();
 
+console.log(instanceOfHashMap.keys());
+
+/* 
 instanceOfHashMap.clear();
 console.log("Print bucket after clear", instanceOfHashMap.getBucket());
 console.log(
@@ -192,3 +207,4 @@ console.log(
   instanceOfHashMap.getNumberOfBuckets()
 );
 instanceOfHashMap.printBuckets();
+*/
