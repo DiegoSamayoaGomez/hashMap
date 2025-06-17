@@ -52,6 +52,7 @@ export const LinkedList = function () {
       count++;
       current = current.next;
     }
+    return null;
   };
 
   // Removes the last element from the list
@@ -85,20 +86,19 @@ export const LinkedList = function () {
   };
 
   // Returns the index of the node containing value, or null if not found.
-  let find = (value) => {
-    if (contains(value)) {
-      let current = head;
-      let count = 0;
-      while (current) {
-        if (current.value === value) {
-          return count;
-        }
-        count++;
-        current = current.next;
+  let find = (key) => {
+    //console.log(key);
+    let current = head;
+    let count = 0;
+    while (current) {
+      //console.log(current.value);
+      if (current.value.key === key) {
+        return count;
       }
-    } else {
-      return null;
+      count++;
+      current = current.next;
     }
+    return null;
   };
 
   // Represents your LinkedList objects as strings, so you can print them out and preview them in the console
