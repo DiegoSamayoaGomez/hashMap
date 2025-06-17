@@ -79,6 +79,23 @@ const HashMap = () => {
     }
   };
 
+  // takes a key as an argument and returns true or false based on
+  // whether or not the key is in the hash map.
+  const has = (key) => {
+    // Hash the key and calculate the index of the bucket
+    let indexOfBucket = hash(key);
+    // IF the bucket is not empty, go to that bucket
+    if (myBucket[indexOfBucket] === undefined) {
+      return false;
+    } else {
+      // Check if the key exists in the bucket
+      let selectedBucket = myBucket[indexOfBucket];
+      // If find() returns an index, it means a key value pair exists
+      let findKeyOfNode = selectedBucket.find(key);
+      return findKeyOfNode !== null ? true : false;
+    }
+  };
+
   const printBuckets = () => {
     myBucket.forEach((bucket, index) => {
       if (bucket) {
@@ -96,6 +113,7 @@ const HashMap = () => {
     getBucket,
     printBuckets,
     get,
+    has,
   };
 };
 
@@ -114,3 +132,4 @@ console.log("Print bucket", instanceOfHashMap.getBucket());
 console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
 instanceOfHashMap.printBuckets();
 console.log("GET", instanceOfHashMap.get("Rasa"));
+console.log("HAS", instanceOfHashMap.has("Diego"));
