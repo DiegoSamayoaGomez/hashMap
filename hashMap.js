@@ -95,6 +95,27 @@ const HashMap = () => {
       return findKeyOfNode !== null ? true : false;
     }
   };
+  // takes a key as an argument. If the given key is in the hash map,
+  // it should remove the entry with that key and return true.
+  const remove = (key) => {
+    // Hash the key and calculate the index of the bucket
+    let indexOfBucket = hash(key);
+    // IF the bucket is not empty, go to that bucket
+    if (myBucket[indexOfBucket] === undefined) {
+      return false;
+    } else {
+      // Compare if the node’s key is the same key that was used for the retrieval
+      let selectedBucket = myBucket[indexOfBucket];
+      // Get the index of the node that contains the key value pair (if exists), otherwise end the execution
+      let findKeyOfNode = selectedBucket.find(key);
+      if (findKeyOfNode !== null) {
+        // Based on the index of the node, return the value which corresponds to the key
+        let getValueOfNode = selectedBucket.atIndex(findKeyOfNode);
+        return selectedBucket.pop(getValueOfNode);
+      }
+      return "Key not found";
+    }
+  };
 
   const printBuckets = () => {
     myBucket.forEach((bucket, index) => {
@@ -114,6 +135,7 @@ const HashMap = () => {
     printBuckets,
     get,
     has,
+    remove,
   };
 };
 
@@ -133,3 +155,5 @@ console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
 instanceOfHashMap.printBuckets();
 console.log("GET", instanceOfHashMap.get("Rasa"));
 console.log("HAS", instanceOfHashMap.has("Diego"));
+console.log("REMOVE", instanceOfHashMap.remove("Rasa"));
+instanceOfHashMap.printBuckets();
