@@ -130,6 +130,18 @@ export const LinkedList = function () {
     }
     return textOfValue;
   };
+
+  let getKeys = () => {
+    let current = head;
+    let currentKey;
+    while (current !== null) {
+      currentKey = current.value.key;
+      current = current.next;
+    }
+
+    return currentKey;
+  };
+
   return {
     append,
     preppend,
@@ -141,6 +153,7 @@ export const LinkedList = function () {
     contains,
     find,
     toString,
+    getKeys,
   };
 };
 
