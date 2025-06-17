@@ -147,6 +147,17 @@ const HashMap = () => {
     return allKeys;
   };
 
+  // Returns an array containing all the values inside the hash map
+  const values = () => {
+    // Create an empty array to store the values
+    let allValues = [];
+    myBucket.forEach((bucket) => {
+      allValues.push(bucket.getValues());
+    });
+    // Return the collected values
+    return allValues;
+  };
+
   const printBuckets = () => {
     myBucket.forEach((bucket, index) => {
       if (bucket) {
@@ -169,6 +180,7 @@ const HashMap = () => {
     length,
     clear,
     keys,
+    values,
   };
 };
 
@@ -198,6 +210,7 @@ console.log("LENGTH", instanceOfHashMap.length());
 instanceOfHashMap.printBuckets();
 
 console.log(instanceOfHashMap.keys());
+console.log(instanceOfHashMap.values());
 
 /* 
 instanceOfHashMap.clear();
