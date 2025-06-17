@@ -158,6 +158,16 @@ const HashMap = () => {
     return allValues;
   };
 
+  // Returns an array that contains each key, value pair
+  const entries = () => {
+    let allEntries = [];
+    myBucket.forEach((bucket) => {
+      allEntries.push(bucket.getKeyValues());
+    });
+    // Return the collected values
+    return allEntries;
+  };
+
   const printBuckets = () => {
     myBucket.forEach((bucket, index) => {
       if (bucket) {
@@ -181,6 +191,7 @@ const HashMap = () => {
     clear,
     keys,
     values,
+    entries,
   };
 };
 
@@ -211,6 +222,7 @@ instanceOfHashMap.printBuckets();
 
 console.log(instanceOfHashMap.keys());
 console.log(instanceOfHashMap.values());
+console.log(instanceOfHashMap.entries());
 
 /* 
 instanceOfHashMap.clear();
