@@ -131,6 +131,8 @@ export const LinkedList = function () {
     return textOfValue;
   };
 
+  // Return the key of each node
+  // NODE (value) {key <--This is what you get: value}
   let getKeys = () => {
     let current = head;
     let currentKey;
@@ -142,6 +144,18 @@ export const LinkedList = function () {
     return currentKey;
   };
 
+  // Return the value of each node
+  // NODE (value) {key : value <--This is what you get}
+  let getValues = () => {
+    let current = head;
+    let currentValue;
+    while (current !== null) {
+      currentValue = current.value.value;
+      current = current.next;
+    }
+
+    return currentValue;
+  };
   return {
     append,
     preppend,
@@ -154,6 +168,7 @@ export const LinkedList = function () {
     find,
     toString,
     getKeys,
+    getValues,
   };
 };
 
