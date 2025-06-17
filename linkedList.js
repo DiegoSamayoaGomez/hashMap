@@ -56,26 +56,40 @@ export const LinkedList = function () {
   };
 
   // Removes the last element from the list
-  let pop = () => {
+  let pop = (nodeToDelete) => {
     if (!head) return "There is no head";
 
     let current = head;
-    let previous;
+    let previous = null;
 
-    while (current.next) {
+    while (current) {
+      // compare the key of the current value (node) with the node
+      // received (node to delete), if they are the same delete it
+      if (current.value.key === nodeToDelete.value.key) {
+        if (!previous) {
+          // Deleting head
+          head = current.next;
+        } else {
+          // Deleting non-head node
+          previous.next = current.next;
+        }
+        size--;
+        return true;
+      }
       previous = current;
       current = current.next;
     }
-    previous.next = null;
-    size--;
+
+    return false;
   };
 
   // Returns true if the passed in value exists in the list, otherwise returns false
-  let contains = (value) => {
+  let contains = (valueToCompare) => {
     let current = head;
 
     while (current) {
-      if (current.value === value) {
+      // Check if the current value (node) is the same with the value (node) received
+      if (current.value === valueToCompare) {
         return true;
       }
       current = current.next;
@@ -86,13 +100,16 @@ export const LinkedList = function () {
   };
 
   // Returns the index of the node containing value, or null if not found.
-  let find = (key) => {
+  let find = (keyToFind) => {
     //console.log(key);
     let current = head;
     let count = 0;
     while (current) {
-      //console.log(current.value);
-      if (current.value.key === key) {
+      // Check if the key of the current value (node) is the same as the key to find
+      // REMEMBER that a node contains (value, next)
+      // inside value an object is received which contains key value pairs
+      // Dont confuse value of the node and the key value pair inside of value (node)
+      if (current.value.key === keyToFind) {
         return count;
       }
       count++;
