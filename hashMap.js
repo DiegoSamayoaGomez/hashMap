@@ -10,9 +10,15 @@ const HashMap = () => {
   let numberOfBuckets = myBucket.length;
   // Set a load factor to know when will be needed to increase the number of buckets
   let loadFactor = 0.75;
-  let capacity = numberOfBuckets;
+  let capacity = setNumberOfBuckets;
   // Store a number of keys created
   let keyLenght = 0;
+
+  let numberToTakeCare = setNumberOfBuckets * loadFactor;
+  console.log("TAKE CARE OF", numberToTakeCare);
+
+  let isResizing = false;
+
   // Takes a key and produces a hash code with it.
   // ** EDGE CASE ** For long keys, the hash code will exceed the integer value of JS
   // and produce inaccurate data. Use % to prevent it
@@ -24,7 +30,7 @@ const HashMap = () => {
       hashCode = primeNumber * hashCode + key.charCodeAt(i);
     }
 
-    return hashCode % 16;
+    return hashCode % setNumberOfBuckets;
   };
 
   /*
@@ -51,7 +57,7 @@ const HashMap = () => {
     //myBucket[bucketLocation] = { [key]: value };
     myBucket[bucketLocation].append({ key, value }); // just append, don’t assign
     keyLenght++;
-    // Store the kay value pair in that bucket
+    checkGrowth();
   };
 
   // Get the array of values stored in the bucket
@@ -132,6 +138,8 @@ const HashMap = () => {
     // Empty the array of buckets
     myBucket.length = 0;
 
+    // Reset the counter of keys
+    keyLenght = 0;
     // Create a new array
     myBucket = new Array(setNumberOfBuckets);
   };
@@ -154,18 +162,19 @@ const HashMap = () => {
     myBucket.forEach((bucket) => {
       allValues.push(bucket.getValues());
     });
-    // Return the collected values
-    return allValues;
   };
 
   // Returns an array that contains each key, value pair
   const entries = () => {
     let allEntries = [];
     myBucket.forEach((bucket) => {
+      //const { numba1, numba2 } = bucket.getKeyValues();
+      //console.log("XDD ->", bucket.getKeyValues());
       allEntries.push(bucket.getKeyValues());
     });
-    // Return the collected values
-    return allEntries;
+    // Return the collected values as a 1D array
+    let flattenedEntries = allEntries.flat();
+    return flattenedEntries;
   };
 
   const printBuckets = () => {
@@ -176,6 +185,40 @@ const HashMap = () => {
         console.log(`Bucket ${index}: empty`);
       }
     });
+  };
+
+  // Create a function which will grow the hash map capacity
+  const growHashMap = () => {
+    isResizing = true; // prevent recursion
+    // Double the number of buckets
+    setNumberOfBuckets = setNumberOfBuckets * 2;
+    // Copy all the values
+    let storedValues = entries();
+    // Clear the old array of buckets
+    clear();
+    // Store the old data into the new array with re hashed data
+    storedValues.forEach((keyValuePair) => {
+      let key = keyValuePair.key;
+      let value = keyValuePair.value;
+      set(key, value);
+    });
+
+    isResizing = false; // re-enable growth check
+  };
+
+  const checkGrowth = () => {
+    if (isResizing) return;
+
+    if (keyLenght > numberToTakeCare) {
+      console.log("TOO BIG");
+      console.log(length());
+      console.log("IT HAS BEEN REZIED TO", getBucket());
+      growHashMap();
+      numberToTakeCare = setNumberOfBuckets * loadFactor;
+      console.log(numberToTakeCare);
+    } else {
+      console.log("STILL GOOD", numberToTakeCare);
+    }
   };
 
   return {
@@ -192,12 +235,20 @@ const HashMap = () => {
     keys,
     values,
     entries,
+    growHashMap, // DElete this access
+    checkGrowth,
   };
 };
 
 let instanceOfHashMap = HashMap();
+
 // Know the index of the key value pair
-console.log(instanceOfHashMap.hash("sara"));
+//console.log(instanceOfHashMap.hash("Rasa"));
+
+console.log("Print bucket", instanceOfHashMap.getBucket());
+console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
+instanceOfHashMap.printBuckets();
+console.log("LENGTH", instanceOfHashMap.length());
 
 instanceOfHashMap.set("Diego", "Old value"); // Delete later the access to this function
 instanceOfHashMap.set("Alejandro", "Different value"); // Delete later the access to this function
@@ -206,6 +257,33 @@ instanceOfHashMap.set("Sara", "xd?");
 instanceOfHashMap.set("Rasa", "xd?");
 instanceOfHashMap.set("Rasa", "Nuevo");
 
+console.log("Print bucket", instanceOfHashMap.getBucket());
+console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
+instanceOfHashMap.printBuckets();
+console.log("LENGTH", instanceOfHashMap.length());
+
+instanceOfHashMap.set("apple", "red");
+instanceOfHashMap.set("banana", "yellow");
+instanceOfHashMap.set("carrot", "orange");
+instanceOfHashMap.set("dog", "brown");
+instanceOfHashMap.set("elephant", "gray");
+instanceOfHashMap.set("frog", "green");
+instanceOfHashMap.set("grape", "purple");
+instanceOfHashMap.set("hat", "black");
+instanceOfHashMap.set("ice cream", "white");
+instanceOfHashMap.set("jacket", "blue");
+instanceOfHashMap.set("kite", "pink");
+
+console.log("LENGTH", instanceOfHashMap.length());
+//instanceOfHashMap.growHashMap();
+
+console.log("Print bucket", instanceOfHashMap.getBucket());
+console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
+instanceOfHashMap.printBuckets();
+console.log("LENGTH", instanceOfHashMap.length());
+
+instanceOfHashMap.checkGrowth();
+/*
 console.log("Print bucket", instanceOfHashMap.getBucket());
 console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
 instanceOfHashMap.printBuckets();
@@ -220,16 +298,21 @@ instanceOfHashMap.printBuckets();
 console.log("LENGTH", instanceOfHashMap.length());
 instanceOfHashMap.printBuckets();
 
-console.log(instanceOfHashMap.keys());
-console.log(instanceOfHashMap.values());
-console.log(instanceOfHashMap.entries());
+//console.log(instanceOfHashMap.keys());
+//console.log(instanceOfHashMap.values());
+console.log("LENGTH", instanceOfHashMap.length());
+instanceOfHashMap.printBuckets();
+console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
 
-/* 
-instanceOfHashMap.clear();
+console.log("---->", instanceOfHashMap.entries());
+
+instanceOfHashMap.growHashMap();
+
 console.log("Print bucket after clear", instanceOfHashMap.getBucket());
 console.log(
   "Number of buckets after clear",
   instanceOfHashMap.getNumberOfBuckets()
 );
 instanceOfHashMap.printBuckets();
+console.log(instanceOfHashMap.hash("Sara"));
 */
