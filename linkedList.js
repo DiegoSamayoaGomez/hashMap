@@ -159,15 +159,15 @@ export const LinkedList = function () {
   // Return the key value pair of each node AS PLAIN TEXT
   let getKeyValues = () => {
     let current = head;
-    let currentKeyValue = {};
+    let currentKeyValue = [];
+
     while (current !== null) {
       let key;
       let value;
       key = current.value.key;
       value = current.value.value;
-      currentKeyValue = `[${key}, ${value}]`;
-      // CHANGE TO SEND THEM AS OBJECTS
-      //  currentKeyValue = {key, value}};
+      currentKeyValue.push({ key, value });
+
       current = current.next;
     }
 
