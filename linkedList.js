@@ -148,9 +148,9 @@ export const LinkedList = function () {
   // NODE (value) {key : value <--This is what you get}
   let getValues = () => {
     let current = head;
-    let currentValue;
+    let currentValue = [];
     while (current !== null) {
-      currentValue = current.value.value;
+      currentValue.push(current.value.value);
       current = current.next;
     }
 
