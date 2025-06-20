@@ -213,12 +213,12 @@ const HashMap = () => {
     if (keyLenght > numberToTakeCare) {
       console.log("TOO BIG");
       console.log(length());
-      console.log("IT HAS BEEN REZIED TO", getBucket());
       growHashMap();
+      console.log("IT HAS BEEN RESIZED TO", getBucket());
       numberToTakeCare = setNumberOfBuckets * loadFactor;
-      console.log(numberToTakeCare);
+      console.log("NEW MAX NUMBER:", numberToTakeCare);
     } else {
-      console.log("STILL GOOD", numberToTakeCare);
+      return;
     }
   };
 
@@ -243,7 +243,6 @@ const HashMap = () => {
 
 let instanceOfHashMap = HashMap();
 // EXAMPLES
-// hash(works internally, but you can know the return value)
 console.log("set(key, value)-> ");
 instanceOfHashMap.set("guayaba", "green");
 instanceOfHashMap.set("melon", "orange");
@@ -251,9 +250,9 @@ instanceOfHashMap.set("watch", "black");
 instanceOfHashMap.set("ball", "white");
 console.log("get(key) ->", instanceOfHashMap.get("ball"));
 console.log("has(key) ->", instanceOfHashMap.has("guayaba"));
-//console.log("remove(key) ->", instanceOfHashMap.remove("ball"));
+//console.log("remove(key) ->", instanceOfHashMap.remove("ball")); it will remove THIS entry so unchecked it if you want to try it
 console.log("length() ->", instanceOfHashMap.length());
-//console.log("clear() ->", instanceOfHashMap.clear()); // it will remove al entries so unchecked if you want to try it
+//console.log("clear() ->", instanceOfHashMap.clear()); // it will remove alL entries so unchecked it if you want to try it
 console.log("keys() ->", instanceOfHashMap.keys());
 console.log("values() ->", instanceOfHashMap.values());
 console.log("entries() ->", instanceOfHashMap.entries());
@@ -262,3 +261,19 @@ console.log("entries() ->", instanceOfHashMap.entries());
 instanceOfHashMap.printBuckets();
 console.log(instanceOfHashMap.getBucket());
 console.log("hash() -> ", instanceOfHashMap.hash("Test"));
+
+// CAUSE GROWTH IN THE HASH MAP
+
+instanceOfHashMap.set("apple", "red");
+instanceOfHashMap.set("banana", "yellow");
+instanceOfHashMap.set("carrot", "orange");
+instanceOfHashMap.set("dog", "brown");
+instanceOfHashMap.set("elephant", "gray");
+instanceOfHashMap.set("frog", "green");
+instanceOfHashMap.set("grape", "purple");
+instanceOfHashMap.set("hat", "black");
+instanceOfHashMap.set("ice cream", "white");
+instanceOfHashMap.set("jacket", "blue");
+instanceOfHashMap.set("kite", "pink");
+
+instanceOfHashMap.printBuckets();
