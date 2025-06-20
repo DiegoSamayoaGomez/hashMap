@@ -152,7 +152,7 @@ const HashMap = () => {
       allKeys.push(bucket.getKeys());
     });
     // Return the collected keys
-    return allKeys;
+    return allKeys.flat();
   };
 
   // Returns an array containing all the values inside the hash map
@@ -162,6 +162,7 @@ const HashMap = () => {
     myBucket.forEach((bucket) => {
       allValues.push(bucket.getValues());
     });
+    return allValues.flat();
   };
 
   // Returns an array that contains each key, value pair
@@ -222,8 +223,8 @@ const HashMap = () => {
   };
 
   return {
-    hash, // Delete later access to this function
-    getNumberOfBuckets, // Delete later this function entirely
+    hash,
+    getNumberOfBuckets,
     set,
     getBucket,
     printBuckets,
@@ -235,84 +236,9 @@ const HashMap = () => {
     keys,
     values,
     entries,
-    growHashMap, // DElete this access
-    checkGrowth,
+    //    growHashMap,
+    //   checkGrowth,
   };
 };
 
 let instanceOfHashMap = HashMap();
-
-// Know the index of the key value pair
-//console.log(instanceOfHashMap.hash("Rasa"));
-
-console.log("Print bucket", instanceOfHashMap.getBucket());
-console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
-instanceOfHashMap.printBuckets();
-console.log("LENGTH", instanceOfHashMap.length());
-
-instanceOfHashMap.set("Diego", "Old value"); // Delete later the access to this function
-instanceOfHashMap.set("Alejandro", "Different value"); // Delete later the access to this function
-instanceOfHashMap.set("Diego", "New value"); // Delete later the access to this function
-instanceOfHashMap.set("Sara", "xd?");
-instanceOfHashMap.set("Rasa", "xd?");
-instanceOfHashMap.set("Rasa", "Nuevo");
-
-console.log("Print bucket", instanceOfHashMap.getBucket());
-console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
-instanceOfHashMap.printBuckets();
-console.log("LENGTH", instanceOfHashMap.length());
-
-instanceOfHashMap.set("apple", "red");
-instanceOfHashMap.set("banana", "yellow");
-instanceOfHashMap.set("carrot", "orange");
-instanceOfHashMap.set("dog", "brown");
-instanceOfHashMap.set("elephant", "gray");
-instanceOfHashMap.set("frog", "green");
-instanceOfHashMap.set("grape", "purple");
-instanceOfHashMap.set("hat", "black");
-instanceOfHashMap.set("ice cream", "white");
-instanceOfHashMap.set("jacket", "blue");
-instanceOfHashMap.set("kite", "pink");
-
-console.log("LENGTH", instanceOfHashMap.length());
-//instanceOfHashMap.growHashMap();
-
-console.log("Print bucket", instanceOfHashMap.getBucket());
-console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
-instanceOfHashMap.printBuckets();
-console.log("LENGTH", instanceOfHashMap.length());
-
-instanceOfHashMap.checkGrowth();
-/*
-console.log("Print bucket", instanceOfHashMap.getBucket());
-console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
-instanceOfHashMap.printBuckets();
-console.log("GET", instanceOfHashMap.get("Rasa"));
-console.log("HAS", instanceOfHashMap.has("Diego"));
-console.log("LENGTH", instanceOfHashMap.length());
-console.log("REMOVE", instanceOfHashMap.remove("Rasa"));
-instanceOfHashMap.printBuckets();
-console.log("LENGTH", instanceOfHashMap.length());
-instanceOfHashMap.set("Test", "Nuevo");
-instanceOfHashMap.printBuckets();
-console.log("LENGTH", instanceOfHashMap.length());
-instanceOfHashMap.printBuckets();
-
-//console.log(instanceOfHashMap.keys());
-//console.log(instanceOfHashMap.values());
-console.log("LENGTH", instanceOfHashMap.length());
-instanceOfHashMap.printBuckets();
-console.log("Number of buckets", instanceOfHashMap.getNumberOfBuckets());
-
-console.log("---->", instanceOfHashMap.entries());
-
-instanceOfHashMap.growHashMap();
-
-console.log("Print bucket after clear", instanceOfHashMap.getBucket());
-console.log(
-  "Number of buckets after clear",
-  instanceOfHashMap.getNumberOfBuckets()
-);
-instanceOfHashMap.printBuckets();
-console.log(instanceOfHashMap.hash("Sara"));
-*/
