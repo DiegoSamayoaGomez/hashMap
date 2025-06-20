@@ -252,7 +252,7 @@ console.log("get(key) ->", instanceOfHashMap.get("ball"));
 console.log("has(key) ->", instanceOfHashMap.has("guayaba"));
 //console.log("remove(key) ->", instanceOfHashMap.remove("ball")); it will remove THIS entry so unchecked it if you want to try it
 console.log("length() ->", instanceOfHashMap.length());
-//console.log("clear() ->", instanceOfHashMap.clear()); // it will remove alL entries so unchecked it if you want to try it
+//console.log("clear() ->", instanceOfHashMap.clear()); // it will remove ALL entries so unchecked it if you want to try it
 console.log("keys() ->", instanceOfHashMap.keys());
 console.log("values() ->", instanceOfHashMap.values());
 console.log("entries() ->", instanceOfHashMap.entries());
@@ -277,3 +277,4 @@ instanceOfHashMap.set("jacket", "blue");
 instanceOfHashMap.set("kite", "pink");
 
 instanceOfHashMap.printBuckets();
+console.log("entries() ->", instanceOfHashMap.entries());
