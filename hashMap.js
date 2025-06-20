@@ -242,3 +242,23 @@ const HashMap = () => {
 };
 
 let instanceOfHashMap = HashMap();
+// EXAMPLES
+// hash(works internally, but you can know the return value)
+console.log("set(key, value)-> ");
+instanceOfHashMap.set("guayaba", "green");
+instanceOfHashMap.set("melon", "orange");
+instanceOfHashMap.set("watch", "black");
+instanceOfHashMap.set("ball", "white");
+console.log("get(key) ->", instanceOfHashMap.get("ball"));
+console.log("has(key) ->", instanceOfHashMap.has("guayaba"));
+//console.log("remove(key) ->", instanceOfHashMap.remove("ball"));
+console.log("length() ->", instanceOfHashMap.length());
+//console.log("clear() ->", instanceOfHashMap.clear()); // it will remove al entries so unchecked if you want to try it
+console.log("keys() ->", instanceOfHashMap.keys());
+console.log("values() ->", instanceOfHashMap.values());
+console.log("entries() ->", instanceOfHashMap.entries());
+
+// EXTRA FUNCTIONS
+instanceOfHashMap.printBuckets();
+console.log(instanceOfHashMap.getBucket());
+console.log("hash() -> ", instanceOfHashMap.hash("Test"));
